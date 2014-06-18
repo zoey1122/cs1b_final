@@ -15,12 +15,12 @@ public class PersonalLibraryModel
    /**
     * Creates a new array list to store objects
     */
-   private static ArrayList<Media> list = new ArrayList<Media>();
+   private ArrayList<Media> list = new ArrayList<Media>();
 
    /**
     * Adds an object of media to the list
     */
-   public void add(Media m)
+   public void addToLibrary(Media m)
    {
 
       list.add(m);
@@ -44,10 +44,10 @@ public class PersonalLibraryModel
    /**
     * Sorts the results for printing
     */
-   public ArrayList<Media> sort()
+   public void sort()
    {
       System.out.println("sort() reached.");
-      return new ArrayList<Media>();
+      //return new ArrayList<Media>();
    }
 
    /**

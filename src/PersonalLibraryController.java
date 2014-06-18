@@ -16,26 +16,28 @@ public class PersonalLibraryController implements ActionListener
 {
    public static void main(String args[])
    {
+      PersonalLibraryModel model = new PersonalLibraryModel();
 
-      // Declares an empty Personal Library
-      ArrayList<Media> list = new ArrayList<Media>();
-      
-      
-      // Adds one entry of each type to the Personal Library
+      Media m = new Media();
       Book bk = new Book();
       Song sg = new Song();
       Video vd = new Video();
       VideoGame vg = new VideoGame();
-      list.add(bk);
-      list.add(sg);
-      list.add(vd);
-      list.add(vg);
-      
-      // Prints the Personal Library to show that the entries got into it
-      System.out.println(list);
 
-      GUIMenu g = new GUIMenu();
-      
+      System.out.println(m);
+      System.out.println(bk);
+      System.out.println(sg);
+      System.out.println(vd);
+      System.out.println(vg);
+
+      model.addToLibrary(m);
+      model.addToLibrary(bk);
+      model.addToLibrary(sg);
+      model.addToLibrary(vd);
+      model.addToLibrary(vg);
+
+      new GUIMenu();
+
    }
 
    /**
@@ -64,7 +66,7 @@ public class PersonalLibraryController implements ActionListener
       bk.setLocation(location);
       bk.setNotes(notes);
       PersonalLibraryModel model = new PersonalLibraryModel();
-      model.add(bk);
+      model.addToLibrary(bk);
    }
 
    /**
@@ -81,7 +83,7 @@ public class PersonalLibraryController implements ActionListener
       sg.setLocation(location);
       sg.setNotes(notes);
       PersonalLibraryModel model = new PersonalLibraryModel();
-      model.add(sg);
+      model.addToLibrary(sg);
    }
 
    /**
@@ -97,7 +99,7 @@ public class PersonalLibraryController implements ActionListener
       vo.setLocation(location);
       vo.setNotes(notes);
       PersonalLibraryModel model = new PersonalLibraryModel();
-      model.add(vo);
+      model.addToLibrary(vo);
    }
 
    public void addVideoGameInfo(String title, String format, String location,
@@ -109,7 +111,7 @@ public class PersonalLibraryController implements ActionListener
       vg.setLocation(location);
       vg.setNotes(notes);
       PersonalLibraryModel model = new PersonalLibraryModel();
-      model.add(vg);
+      model.addToLibrary(vg);
    }
 
    /**
@@ -126,35 +128,18 @@ public class PersonalLibraryController implements ActionListener
 
 /*
  * 
-[
-Book Title: title_null
-Author: author_null
-Format: format_null
-Location: local_null
-Notes: notes_null
-
-, 
-Song Title: title_null
-Artist: artist_null
-Genre: genre_null
-Format:format_null
-Location: loca_null
-Notes: notes_null
-
-, 
-Video Title: title_null
-Star:star_null
-Format: format_null
-Location: loca_null
-Notes: notes_null
-
-, 
-Game Title: title_null
-Format: format_null
-Location: loca_null
-Notes: notes_null
-
-]
-* 
-*/
+ * [ Book Title: title_null Author: author_null Format: format_null Location:
+ * local_null Notes: notes_null
+ * 
+ * , Song Title: title_null Artist: artist_null Genre: genre_null
+ * Format:format_null Location: loca_null Notes: notes_null
+ * 
+ * , Video Title: title_null Star:star_null Format: format_null Location:
+ * loca_null Notes: notes_null
+ * 
+ * , Game Title: title_null Format: format_null Location: loca_null Notes:
+ * notes_null
+ * 
+ * ]
+ */
 // -----------------------SAMPLE RUN-----------------//
