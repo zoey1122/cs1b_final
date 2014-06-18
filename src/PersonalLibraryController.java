@@ -12,33 +12,15 @@ import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
 
-public class PersonalLibraryController implements ActionListener
+public class PersonalLibraryController
 {
    public static void main(String args[])
    {
       PersonalLibraryModel model = new PersonalLibraryModel();
-
-      Media m = new Media();
-      Book bk = new Book();
-      Song sg = new Song();
-      Video vd = new Video();
-      VideoGame vg = new VideoGame();
-
-      System.out.println(m);
-      System.out.println(bk);
-      System.out.println(sg);
-      System.out.println(vd);
-      System.out.println(vg);
-
-      model.addToLibrary(m);
-      model.addToLibrary(bk);
-      model.addToLibrary(sg);
-      model.addToLibrary(vd);
-      model.addToLibrary(vg);
-
-      new GUIMenu();
-
+      GUIMenu g = new GUIMenu();
    }
+ 
+      
 
    /**
     * Add all of the media information to the list
@@ -127,19 +109,35 @@ public class PersonalLibraryController implements ActionListener
 // -----------------------SAMPLE RUN-----------------//
 
 /*
- * 
- * [ Book Title: title_null Author: author_null Format: format_null Location:
- * local_null Notes: notes_null
- * 
- * , Song Title: title_null Artist: artist_null Genre: genre_null
- * Format:format_null Location: loca_null Notes: notes_null
- * 
- * , Video Title: title_null Star:star_null Format: format_null Location:
- * loca_null Notes: notes_null
- * 
- * , Game Title: title_null Format: format_null Location: loca_null Notes:
- * notes_null
- * 
- * ]
+[
+Book Title: book1
+Author: 
+Format: 
+Location: 
+Notes: 
+
+, 
+Song Title: song1
+Artist: 
+Genre: 
+Format:
+Location: 
+Notes: 
+
+, 
+Video Title: video1
+Star:
+Format: 
+Location: 
+Notes: 
+
+, 
+Book Title: book2
+Author: 
+Format: 
+Location: 
+Notes: 
+
+]
  */
 // -----------------------SAMPLE RUN-----------------//

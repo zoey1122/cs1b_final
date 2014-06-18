@@ -8,14 +8,22 @@
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PersonalLibraryModel
+public class PersonalLibraryModel implements Serializable
 {
+   /**
+    * default constructor
+    */
+   public PersonalLibraryModel()
+   {
+   }
+
    /**
     * Creates a new array list to store objects
     */
-   private ArrayList<Media> list = new ArrayList<Media>();
+   private static ArrayList<Media> list = new ArrayList<Media>();
 
    /**
     * Adds an object of media to the list
@@ -37,17 +45,16 @@ public class PersonalLibraryModel
       {
          System.out.println("Error writing objects to the file: "
                + ioe.getMessage());
-      }
+     }
 
    }
 
    /**
     * Sorts the results for printing
     */
-   public void sort()
+   public void sort(ArrayList<Media> list)
    {
       System.out.println("sort() reached.");
-      //return new ArrayList<Media>();
    }
 
    /**
@@ -55,7 +62,7 @@ public class PersonalLibraryModel
     */
    public String toString()
    {
-      
+
       return null;
    }
 
@@ -81,7 +88,7 @@ public class PersonalLibraryModel
    /**
     * Deletes an entry
     */
-   public void delete(int index)
+   public void delete(Media m)
    {
       System.out.println("delete() reached.");
    }
