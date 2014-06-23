@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +20,9 @@ public class GUIAddSong extends JFrame implements ActionListener
    private JLabel title, artist, genre, format, location, notes;
    private JButton addButton, cancel;
    private JTextField tf1, tf2, tf3, tf4, tf5, tf6;
+   
+   private GUIAdd parentView;
+   private GUIMenu menuView;
 
    /**
     * Sets the initial GUI for adding a song
@@ -85,14 +89,23 @@ public class GUIAddSong extends JFrame implements ActionListener
    /**
     * Shows the initial GUI for this window
     */
-   public GUIAddSong()
+   public GUIAddSong(GUIAdd parent, PersonalLibraryController controller, GUIMenu menu)
    {
       this.initialize();
+      
+      this.parentView = parent;
+      this.controller = controller;
+      this.menuView = menu;
 
       this.setSize(300, 250);
       this.setTitle("Add Song");
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      this.setVisible(false);
+      //this.setVisible(false);
+   }
+   
+   public void showPopup(String message)
+   {
+      JOptionPane.showMessageDialog(null, message);
    }
 
    /**
@@ -104,19 +117,18 @@ public class GUIAddSong extends JFrame implements ActionListener
       if (evt.getSource() == addButton)
       {
          if (tf1.getText().isEmpty())
-            JOptionPane.showMessageDialog(null,
-                  "Title is requird. \nPlease enter the title.");
+            showPopup("Title is requird. \nPlease enter the title.");
 
          else
          {
-            controller.addMediaInfo(tf1.getText(), tf4.getText(),
-            tf5.getText(), tf6.getText());
+            //controller.addMediaInfo(tf1.getText(), tf4.getText(),
+            //tf5.getText(), tf6.getText());
             controller.addSongInfo(tf1.getText(), tf2.getText(), tf3.getText(),
                   tf4.getText(), tf5.getText(), tf6.getText());
+            showPopup("Adding is done.");
             this.setVisible(false);
-            GUIMenu m = new GUIMenu();
-            JOptionPane.showMessageDialog(null, " Adding is done.");
-            m.setVisible(true);
+            menuView.setVisible(true);
+            
          }
       }
 
@@ -124,8 +136,7 @@ public class GUIAddSong extends JFrame implements ActionListener
       else if (evt.getSource() == cancel)
       {
          this.setVisible(false);
-         GUIAdd a = new GUIAdd();
-         a.setVisible(true);
+         parentView.setVisible(true);
       }
 
    }

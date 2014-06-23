@@ -5,47 +5,81 @@
  * and Saves a whole new copy of the library.
  * @author Yp.Y
  */
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PersonalLibraryModel implements Serializable
 {
+   private ArrayList<Media> list;
+
    /**
     * default constructor
     */
    public PersonalLibraryModel()
    {
+      list = new ArrayList<Media>();
    }
 
    /**
     * Creates a new array list to store objects
     */
-   private static ArrayList<Media> list = new ArrayList<Media>();
+   public ArrayList<Media> getList()
+   {
+      return this.list;
+   }
 
    /**
     * Adds an object of media to the list
     */
    public void addToLibrary(Media m)
    {
-
       list.add(m);
+   }
+
+   public void writeToLibrary()
+   {
       FileOutputStream outFile;
       ObjectOutputStream outObject;
       try
       {
          outFile = new FileOutputStream("data");
          outObject = new ObjectOutputStream(outFile);
-         outObject.writeObject(list);
+         outObject.writeObject(this);
          outFile.close();
          outObject.close();
       } catch (IOException ioe)
       {
          System.out.println("Error writing objects to the file: "
                + ioe.getMessage());
-     }
+      }
+   }
+
+   public static PersonalLibraryModel readFromLibrary()
+   {
+      FileInputStream inFile;
+      ObjectInputStream inObject;
+      PersonalLibraryModel model = null;
+      try
+      {
+         inFile = new FileInputStream("data");
+         inObject = new ObjectInputStream(inFile);
+         model = (PersonalLibraryModel) inObject.readObject();
+         inFile.close();
+         inObject.close();
+      } catch (IOException ioe)
+      {
+         System.out.println("Error reading objects from the file: "
+               + ioe.getMessage());
+      } catch (ClassNotFoundException cnfe)
+      {
+         System.out.println("Error in casting to the list " + cnfe);
+      }
+      return model;
 
    }
 
@@ -62,8 +96,7 @@ public class PersonalLibraryModel implements Serializable
     */
    public String toString()
    {
-
-      return null;
+      return list.toString();
    }
 
    /**
@@ -88,9 +121,10 @@ public class PersonalLibraryModel implements Serializable
    /**
     * Deletes an entry
     */
-   public void delete(Media m)
+   public void delete(int index)
    {
-      System.out.println("delete() reached.");
+      list.remove(index);
+      this.writeToLibrary();
    }
 
 }

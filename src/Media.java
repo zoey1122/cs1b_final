@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  * One object of class Media stores the information for one type of media.
@@ -84,7 +85,47 @@ public class Media implements Comparable<Media>, Serializable
    public int getCounter()
    {
       return counter;
+   }  
+   
+   /**
+    * getter and setter for the type of one object
+    */
+   private String type;
+
+   // Sets the value of type to "newType"
+   public void setType(String newType)
+   {
+      this.type = newType;
    }
+
+   // Returns the current value of type
+   public String getType()
+   {
+      return type;
+   }
+   
+    /**
+     * Sorts the media by title
+     *
+     * @author SA
+     */
+    public static Comparator<Media> COMPARE_BY_TITLE = new Comparator<Media>() {
+       public int compare(Media one, Media other) {
+          return one.title.compareToIgnoreCase(other.title);
+       }
+    };
+    
+    
+    /**
+     * Sorts the media by type
+     *
+     * @author SA
+     */
+    public static Comparator<Media> COMPARE_BY_TYPE = new Comparator<Media>() {
+       public int compare(Media one, Media other) {
+          return one.type.compareToIgnoreCase(other.type);
+       }
+    };
 
    /**
     * default constructor for Media class object which assigns default values

@@ -11,11 +11,14 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 public class GUIMenu extends JFrame implements ActionListener
 {
    private JButton addInfo, printInfo, retrieveInfo, deleteInfo;
    private JPanel p1, p2;
+
+   private PersonalLibraryController controller;
 
    /**
     * Sets the initial GUI for adding the information of media
@@ -63,14 +66,17 @@ public class GUIMenu extends JFrame implements ActionListener
    /**
     * Shows the initial GUI for main menu
     */
-   public GUIMenu()
+   public GUIMenu(PersonalLibraryController controller)
    {
+      this.controller = controller;
+
       this.initialize();
 
       this.setSize(300, 250);
       this.setTitle("Personal Library");
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       this.setVisible(true);
+
    }
 
    /**
@@ -83,7 +89,7 @@ public class GUIMenu extends JFrame implements ActionListener
       if (evt.getSource() == addInfo)
       {
          this.setVisible(false);
-         GUIAdd a = new GUIAdd();
+         GUIAdd a = new GUIAdd(this.controller, this);
          addInfo.addActionListener(a);
          a.setVisible(true);
       }
@@ -92,7 +98,9 @@ public class GUIMenu extends JFrame implements ActionListener
       if (evt.getSource() == printInfo)
       {
          this.setVisible(false);
-         GUIPrintResult p = new GUIPrintResult();
+
+         ArrayList<Media> list = controller.getAllEntries();
+         GUIPrintResult p = new GUIPrintResult(list, this);
          printInfo.addActionListener(p);
          p.setVisible(true);
       }
@@ -101,7 +109,7 @@ public class GUIMenu extends JFrame implements ActionListener
       if (evt.getSource() == retrieveInfo)
       {
          this.setVisible(false);
-         GUIRetrieve r = new GUIRetrieve();
+         GUIRetrieve r = new GUIRetrieve(this);
          retrieveInfo.addActionListener(r);
          r.setVisible(true);
       }
@@ -110,7 +118,7 @@ public class GUIMenu extends JFrame implements ActionListener
       else if (evt.getSource() == deleteInfo)
       {
          this.setVisible(false);
-         GUIDelete d = new GUIDelete();
+         GUIDelete d = new GUIDelete(this);
          deleteInfo.addActionListener(d);
          d.setVisible(true);
       }

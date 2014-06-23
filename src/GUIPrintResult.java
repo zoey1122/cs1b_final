@@ -7,14 +7,13 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class GUIPrintResult extends JFrame implements ActionListener
@@ -23,7 +22,10 @@ public class GUIPrintResult extends JFrame implements ActionListener
    private JButton cancel;
    private JTextArea printArea;
    private JPanel p1, p2;
-   private ArrayList<Media> personalLibraryList = new ArrayList<Media>();
+   private ArrayList<Media> personalLibraryList;
+   
+   // private GUIAdd parentView;
+   private GUIMenu menuView;
 
    /**
     * Sets the initial GUI for printing every entry
@@ -38,37 +40,10 @@ public class GUIPrintResult extends JFrame implements ActionListener
 
       // Creates a area to print all the entries of Personal Library
       printArea = new JTextArea();
-
-      // Reads from the personal library file "data"
-      ObjectInputStream inObject;
-      try
-      {
-         FileInputStream inFile;
-         inFile = new FileInputStream("data");
-         inObject = new ObjectInputStream(inFile);
-         personalLibraryList = (ArrayList<Media>) inObject.readObject();
-
-         System.out.println(personalLibraryList);
-         inFile.close();
-         inObject.close();
-      } catch (IOException ioe)
-      {
-         System.out.println("Error reading from the file: " + ioe.getMessage());
-         JOptionPane.showMessageDialog(null,
-               "The personal library list is Empty");
-
-      } catch (ClassNotFoundException cnfe)
-      {
-         System.out.println("Error in casting: " + cnfe);
-      }
-
-      // Displays all the entries in the Personal Library
-      for(int i=0;i<personalLibraryList.size();i++)
-      {
-        printArea.append(personalLibraryList.get(i).toString());
-      }
       printArea.setEditable(false);
       this.add(printArea);
+      JScrollPane sp = new JScrollPane();
+      sp.setViewportView(printArea);
 
       // Creats a button of going back to the main menu
       cancel = new JButton("Cancel");
@@ -76,18 +51,34 @@ public class GUIPrintResult extends JFrame implements ActionListener
       cancel.addActionListener(this);
 
       p1.add(cancel);
-      p2.add(printArea, BorderLayout.CENTER);
+      p2.add(sp, BorderLayout.CENTER);
       p2.add(p1, BorderLayout.SOUTH);
       add(p2, BorderLayout.SOUTH);
+      
+     
 
    }
 
    /**
     * Shows the initial GUI for window
     */
-   public GUIPrintResult()
+   public GUIPrintResult(ArrayList<Media> list, GUIMenu menu)
    {
       this.initialize();
+      this.menuView = menu;
+
+      String result = "";
+      for (int i = 0; i < list.size(); i++)
+      {
+         int id = i + 1;
+         result = result + "ID number: ¡¾ " + id + " ¡¿"+ list.get(i).toString();
+      }
+      printArea.append(result);
+      System.out.println(result);
+      
+      
+//      Collections.sort(personalLibraryList, Media.COMPARE_BY_TITLE);
+//      Collections.sort(personalLibraryList, Media.COMPARE_BY_TYPE);
 
       this.setSize(300, 300);
       this.setTitle("Personal Library");
@@ -104,8 +95,7 @@ public class GUIPrintResult extends JFrame implements ActionListener
       if (evt.getSource() == cancel)
       {
          this.setVisible(false);
-         GUIMenu m = new GUIMenu();
-         m.setVisible(true);
+         menuView.setVisible(true);
       }
    }
 }
